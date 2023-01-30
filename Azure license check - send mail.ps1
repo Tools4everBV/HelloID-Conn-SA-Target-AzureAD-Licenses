@@ -176,7 +176,7 @@ $mailBody = "
 if ($sendMail -eq $true) {
     try {
         # Send mail
-        $emailMessage = New-Object System.Net.Mail.MailMessage($mailFrom, $mailTo)
+        $emailMessage = [System.Net.Mail.MailMessage]::new($mailFrom, $mailTo)
         if (![string]::IsNullOrEmpty($mailCC)) { $emailMessage.Cc.Add($mailCC) }
         if (![string]::IsNullOrEmpty($mailBCC)) { $emailMessage.Bcc.Add($mailBCC) }
         $emailMessage.Subject = $mailSubject
@@ -185,9 +185,9 @@ if ($sendMail -eq $true) {
         $emailMessage.Body = $mailBody
         if (![string]::IsNullOrEmpty($mailEncoding)) { $emailMessage.BodyEncoding = ([System.Text.Encoding]::$mailEncoding) }
 
-        $smtpClient = New-Object System.Net.Mail.SmtpClient($mailSmtpServer, $mailSmtpPort)
+        $smtpClient = [System.Net.Mail.SmtpClient]::new($mailSmtpServer, $mailSmtpPort)
         $smtpClient.EnableSsl = $mailUseSsl
-        $smtpClient.Credentials = New-Object System.Net.NetworkCredential($mailSmtpUsername, $mailSmtpPassword);
+        $smtpClient.Credentials = [System.Net.NetworkCredential]::new($mailSmtpUsername, $mailSmtpPassword);
         $smtpClient.Send($emailMessage)
                 
         Write-Verbose -Verbose "Successfully sent mail to [$mailTo]"
