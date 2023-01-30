@@ -152,7 +152,7 @@ $fallbackAttribute = "network_login_name" # Known supported attributes: 'email',
 $callerLookupAttribute = 'id' # Attribute to lookup the caller within the incident. Known supported attributes: 'id', 'email'
 
 $briefDescription = "Office 365 license treshold reached"
-$briefDescription = New-Object String (,$briefDescription[0..(80-1)]) # Limit to maximum amount of characters to prevent errors
+$briefDescription = $briefDescription.substring(0, [System.Math]::Min(80, $briefDescription.Length)) # Limit to maximum amount of characters to prevent errors
 # Create custom object to display license table
 $licensesWithReachedThresholdTopdeskTable = $null
 foreach($licenseWithReachedThreshold in $licensesWithReachedThreshold){
